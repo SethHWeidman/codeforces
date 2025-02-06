@@ -1,44 +1,50 @@
 import sys
 
 
-class Solution:
-    def minimal_cost_to_product_one(self, numbers: list[int]) -> int:
-        """
-        Given a list of integers `numbers`, returns the minimal cost (number of +/-1
-        operations) required to make their product = 1.
-        """
-        total_cost = 0
-        neg_count = 0
-        zero_count = 0
+def minimal_cost_to_product_one(numbers: list[int]) -> int:
+    '''
+    Idea:
 
-        for a in numbers:
-            if a == 0:
-                # Cost to move 0 -> ±1 is 1
-                total_cost += 1
-                zero_count += 1
-            elif a > 0:
-                # Cost to become +1 is (a - 1)
-                total_cost += a - 1
-            else:  # a < 0
-                # Cost to become -1 is (-a - 1)
-                total_cost += -a - 1
-                neg_count += 1
+    * If a number `x` is positive, we can make it 1 with `x - 1` moves
+    * If a number `x` is negative, we can make it -1 with `-x - 1` moves
+    * If a number is 0, we can make it 1 with 1 move
 
-        # Fix sign parity if needed
-        if neg_count % 2 != 0:
-            # If there's at least one zero, we can pick it to be -1 with no extra cost
-            if zero_count == 0:
-                # Must flip exactly one from +1 to -1 or vice versa (cost = 2)
-                total_cost += 2
+    * If we have an odd number of negative numbers, we can flip 0 to be -1 (instead of 1)
+      with no cost
+        * If we have no zeros, we have to add two to the total cost
+    '''
+    total_cost = 0
+    num_negative = 0
+    num_zeros = 0
 
-        return total_cost
+    for n in numbers:
+        if n > 0:
+            total_cost += n - 1
+
+        elif n < 0:
+            total_cost += -n - 1
+            num_negative += 1
+
+        else:
+            total_cost += 1
+            num_zeros += 1
+
+    if num_negative % 2 == 1:
+
+        if num_zeros == 0:
+
+            total_cost += 2
+
+    return total_cost
 
 
 def solve():
+    '''
+    ChatGPT wrote this
+    '''
     _ = int(sys.stdin.readline().strip())
     numbers = list(map(int, sys.stdin.readline().strip().split()))
-    s = Solution()
-    answer = s.minimal_cost_to_product_one(numbers)
+    answer = minimal_cost_to_product_one(numbers)
     print(answer)
 
 
