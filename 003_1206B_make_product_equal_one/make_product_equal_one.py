@@ -1,3 +1,7 @@
+'''
+https://codeforces.com/problemset/problem/1206/B
+'''
+
 import sys
 
 

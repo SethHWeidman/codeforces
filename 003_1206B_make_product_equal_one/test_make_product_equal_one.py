@@ -1,6 +1,8 @@
 import unittest
-import make_product_equal_one
+
 import test_utils
+
+import make_product_equal_one
 
 
 class TestSolution(unittest.TestCase):
