@@ -1,4 +1,3 @@
-# test_fruits.py
 import unittest
 
 import test_utils
